@@ -1,24 +1,24 @@
-import React from 'react';
-import styles from './App.module.css'; // CSS Module 导入
+import React, { useState } from 'react';
+import styles from './App.module.css';
 import Header from './components/Header';
 import Nav from './components/Nav';
 import MainContent from './components/MainContent';
 import Sidebar from './components/Sidebar';
 
 const App: React.FC = () => {
+  const [blogTitle] = useState<string>("我的技术博客");
+
+  const handleSubscribe = (email: string) => {
+    console.log("App 组件收到了订阅邮箱:", email);
+    alert(`感谢订阅！邮箱 ${email} 已收到。`);
+  };
+
   return (
-    // 使用 Grid 布局构建页面骨架
     <div className={styles.pageLayout}>
-      {/* 语义化标签：页眉区域 */}
-      <Header />
-      {/* 语义化标签：导航区域 */}
+      <Header title={blogTitle} />
       <Nav />
-      {/* 语义化标签：主要内容区域 */}
-      <div className={styles.contentWrapper}>
-        <MainContent />
-        {/* 语义化标签：侧边栏区域（广告/相关链接） */}
-        <Sidebar />
-      </div>
+      <MainContent />
+      <Sidebar onSubscribe={handleSubscribe} />
     </div>
   );
 };
